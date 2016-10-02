@@ -5,6 +5,7 @@ var map;
 var num=0;
 
 
+
 function findAddress_Complete(result) {
      lat = result.results[0].geometry.location.lat;
      long = result.results[0].geometry.location.lng;

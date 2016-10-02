@@ -17,63 +17,161 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 
- <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<!-- part of geolocation -->
+ <!-- search bar -->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    
+ 
+    <style>
+
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
 </head>
-<body>
-  
-        
- <div class="jumbotron" style="text-size: 20px">Where Am I ? </div> 
+<body style= "background-color: red; text-size: 20px">
+ 
+ <div style="text-size:15px ; text-color:white ; background-color:gray ; text-align: center">
 
 
-<a class="navbar-brand" href="#"  > </a> </div>
-            
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-</ul>
-    <form class="navbar-form navbar-left" role="search">
-    <div class="form-group">
-        <input type="text" class="form-control" id="address" placeholder="Enter Address or Zip" />
-    </div>
-    <button type="button" id="buttonLookup" class="btn btn-success"> <span class="glyphicon glyphicon-plus"></button>
-</form>
+        <h1> MAPLY!</h1>
+            </div>
+    <div class="row col-xs-8 col-sm-6 col-md-4 col-lg-3;" </div>
 
-</div>
+    <div class="container ">
+             <div class="row" style = "height: 500px; width: 300px; margin: 50px; padding: 20px" >
+<!-- GeoLocation to current area -->
+<div id="map" style="html, body"></div>           
 
- <div id="map"></div>
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map"></div>
     <script>
+ 
 
-
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+      function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13,
+          mapTypeId: 'roadmap'
         });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            // Create a marker for each place.
+            markers.push(new google.maps.Marker({
+              map: map,
+              icon: icon,
+              title: place.name,
+              position: place.geometry.location
+            }));
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
         });
       }
 
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbHVfmM62MfzpNjG6wzZz-74Hj1fXC-wE&libraries=places&callback=initAutocomplete"
+         async defer></script>
+<div class="container" id="forcastshow2">
+                <div class="container" id="forcastshow">
+                      <div id= "forcastshow2" class=" col-xs-10 col-sm-6 col-md-4 col-lg-3  cards1">
+                            <div class="col-md-12 divbutton">
+                                <h3> -city- </h3>
 
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbHVfmM62MfzpNjG6wzZz-74Hj1fXC-wE&callback=initMap">
-    </script>
-
-   
 
       <!--      <div class="hidden"> -->
 
-                <div class="container" id="forcastshow">
-                    <div id= "forcastshow2" class=" col-xs-10 col-sm-6 col-md-4 col-lg-3  cards1">
-
-                            <div class="col-md-12 divbutton">
-
-
-
+               
+                            </div>
+                        </div>
+                    </div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +181,17 @@
     </div>
 </div>
 
+<script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
 
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+
+    </script>
 
     
 </body>

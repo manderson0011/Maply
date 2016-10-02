@@ -16,30 +16,15 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    
-<style>
-       #map {
+
+   <style>
+      #map {
         height: 400px;
-        width: 200px;
-       }
+        width: 300px;       }
     </style>
-
-
-    
-</head>
-<body>
-    
-        
- <div class="jumbotron"></div>
-
-
-        <h1> My Map</h1>
-
- <h3>My Google Maps Demo</h3>
-
 
 
 
@@ -59,16 +44,12 @@
 
 </div>
 
- <div id="map"></div>
+ <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
     <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-
-      function initMap() {
+     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
+          center: {lat:37.8393 N lng:  84.2700 W},
           zoom: 6
         });
         var infoWindow = new google.maps.InfoWindow({map: map});
@@ -106,13 +87,19 @@
 
    
 
-
+    <div class= "container " >
+             <div class="row-centered" style="background-color:red; margin: 10px">
+                    <div class="container-centered" id="forcastshow2"></div>
  
       <!--      <div class="hidden"> -->
 
                 <div class="container" id="forcastshow">
                     <div id= "forcastshow2" class=" col-xs-10 col-sm-6 col-md-4 col-lg-3  cards1">
 
+
+                        
+                        
+                        
                             <div class="col-md-12 divbutton">
 
 
@@ -128,11 +115,3 @@
 </body>
 
 </html>  
-<div
-
-    
-</body>
-
-
-
-</html

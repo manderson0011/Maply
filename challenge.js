@@ -61,3 +61,23 @@
         }
         map.fitBounds(bounds);
       }
+
+
+  function cardChange2(forcastInfo) {
+  var html = cardChanges(forcastInfo);
+  $('#forcastshow2').append(html);
+
+}
+
+
+
+function darkSky(lat, long) {
+    var darkSky = "https://api.darksky.net/forecast/60dfe781e615860cf1939b773279e5a6/" + lat + "," + long;
+    var weather = {
+        url: darkSky,
+        dataType: "jsonp",
+        success: darkSky_Complete
+};
+
+    $.ajax(weather);
+}

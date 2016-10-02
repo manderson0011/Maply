@@ -16,19 +16,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <script data-cfasync="false" type="text/javascript" src="//filamentapp.s3.amazonaws.com/bd0fb5033f2576166c03cfc1612cbc44.js"
+        async="async"></script>
     
-    <style>
-html, body{
-   height: 100%; 
-   margin: 0;
-}
-
-#map {
-       width: 100%;
-       height: 400px;
-
-     }
- </style>
+  <style>
+        html,
+        body {
+            height: 50%;
+            margin-right: 30px;
+            padding: 0;
+        }
+        
+        #map {
+            height: 70%;
+            margin-right: 40px;
+        }
+    </style>
 
 </head>
 
@@ -72,19 +76,17 @@ html, body{
             </div>
     <div class="row col-xs-8 col-sm-6 col-md-4 col-lg-3 ">
             </div>
-    <div class="row" style="height:40px">
+    <div class="row" style="height:40px margin: auto">
              </div>
 
     <div class="container">
              <div class="row ">
                     <div class="container" id="forcastshow2">
                             </div>
-           
-
-   <div id="map"
+              <div class="hidden">
                 <div class="container" id="forcastshow">
                     <div id= "forcastshow2" class=" col-xs-10 col-sm-6 col-md-4 col-lg-3  cards1">
-                        <div class="row " style=" text-align:center">
+                        <div class="row " style=" text-align:center margin:auto">
                             <div class="col-md-12 divbutton">
                                 <h3> -city- </h3>
 
@@ -142,7 +144,10 @@ html, body{
                                     <h5>-max-</h5>
 
                                 </div>
+                                <br />
                                 <div class="row" style="height:5px">
+    <div id="map-num-" class=" -mapInfo-" style="position:realitive; left:15px; width: 400px ;height:300px; margin: auto; border: 2px solid black; border-radius: 4px">
+
 
                                 </div>
                             </div>

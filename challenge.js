@@ -1,6 +1,8 @@
 var areaName;
 var lat;
 var long;
+var map;
+var num=0;
 
 
 function findAddress_Complete(result) {
@@ -24,7 +26,7 @@ function findAddress(city, state, address) {
     else {
         return;
 
-
+//get url for darksky
  }
     var pullGoogle = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addAddress + "&key=AIzaSyBYU-nRSm6HXOq470xg5b_A5bXOwz7rOh4";
 
@@ -36,19 +38,19 @@ function findAddress(city, state, address) {
     $.ajax(request);
 }
 
-
+// look up address on click 
 function buttonLookup_click() {
     var postcode = $("#address").val();
    findAddress("", "", postcode);
 
 }
-
+// this is the click event
 $(function () {
     $("#buttonLookup").on("click", buttonLookup_click);
 
 });
 
-
+// get info from darksky
 
 function darkSky(lat, long) {
     var darkSky = "https://api.darksky.net/forecast/60dfe781e615860cf1939b773279e5a6/" + lat + "," + long;
@@ -61,7 +63,7 @@ function darkSky(lat, long) {
     $.ajax(weather);
 }
 
-
+// receive weather information 
 
 function darkSky_Complete(result) {
     console.log("It is currently " + result.timezone + ".");
@@ -88,22 +90,25 @@ function darkSky_Complete(result) {
 
 
 function initMap() {
-    var uluru = {lat:+lat, lng:+long};
-    var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
+    map = new google.maps.Map(document.getElementById('map'+ num), {
+        center: { lat: +lat, lng: +long },
+        zoom: 12
     });
+    num++;
+    var myLatLng = { lat: +lat, lng: +long };
     var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-});
+        position: myLatLng,
+        map: map,
+        title:  'Location'
+
+    });
+    marker.setMap(map);
+
 }
 
 
-console.log("lat");
 
-
-
+// show new card and gets the correct information
 
 function cardChanges(data) {
     var forcastInfo = $("#forcastshow").html();
@@ -118,14 +123,21 @@ function cardChanges(data) {
     forcastInfo = forcastInfo.replace("-min-", data.minText);
     forcastInfo = forcastInfo.replace("-rainChances-", data.rainChancetext);
     forcastInfo = forcastInfo.replace("-max-", data.maxText);
-    return forcastInfo;
-
+    forcastInfo = forcastInfo.replace("-mapInfo-", data.icon);
+    forcastInfo = forcastInfo.replace("-num-", num);
+      return forcastInfo;
 }
+//puts information on card
+
 function cardChange2(forcastInfo) {
     var html = cardChanges(forcastInfo);
     $('#forcastshow2').append(html);
-
+    initMap();
 }
 
-
+function removeCard() {
+    var elem = document.getElementById('infoCard');
+    elem.parentNode.removeChild(elem);
+    return false;
+}
 
